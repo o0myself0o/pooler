@@ -505,7 +505,7 @@ do_return_member(Pid, ok, #pool{all_members = AllMembers} = Pool) ->
         {ok, {MRef, CPid, _}} ->
             #pool{free_pids = Free, in_use_count = NumInUse,
                   free_count = NumFree} = Pool,
-            Pool1 = Pool#pool{free_pids = [Pid | Free], in_use_count = NumInUse - 1,
+            Pool1 = Pool#pool{free_pids = Free ++ [Pid], in_use_count = NumInUse - 1,
                               free_count = NumFree + 1},
             Entry = {MRef, free, os:timestamp()},
             Pool1#pool{all_members = store_all_members(Pid, Entry, AllMembers),

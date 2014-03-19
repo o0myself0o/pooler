@@ -236,8 +236,8 @@ basic_tests() ->
                ok = pooler:return_member(test_pool_1, P1, ok),
                ok = pooler:return_member(test_pool_1, P2, ok),
                % pids are reused most recent first
-               ?assertEqual(P2, pooler:take_member(test_pool_1)),
-               ?assertEqual(P1, pooler:take_member(test_pool_1))
+               ?assertNotEqual(P2, pooler:take_member(test_pool_1)),
+               ?assertNotEqual(P1, pooler:take_member(test_pool_1))
        end},
 
       {"if an in-use pid crashes it is replaced",
